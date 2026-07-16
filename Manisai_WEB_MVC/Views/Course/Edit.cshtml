@@ -1,0 +1,14 @@
+﻿
+@model Manisai_WEB_MVC.Models.Coursemaster
+
+<h3> Edit the course</h3>
+<form action="/Course/Update" method="post">
+    <input type="hidden" name="id" value="@Model.Id" />
+    Course Name : <input type="text" name="coursename" value="@Model.Coursename" /> <br/>
+    Description : <input type="text" name="description"  value="@Model.Description"/> <br />
+    Duration : <input type="text" name="duration" value="@Model.Duration" /><br />
+    Modules : <input type="text" name="modules"   value="@Model.Modules" /><br />
+
+    <input type ="submit" value="Update" />
+    
+</form>

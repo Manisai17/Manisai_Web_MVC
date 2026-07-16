@@ -1,0 +1,29 @@
+﻿
+@{
+
+}
+<table border="1">
+    <tr>
+      <th>Course ID</th>
+      <th>Course Name</th>
+      <th>Description <th>
+      <th>Duration</th>
+      <th>Modules</th>
+      <th></th>
+      <th</th>
+
+    </tr>
+    @foreach (Coursemaster course in ViewBag.courses)
+    {
+        <tr>
+           <td> @course.Id </td>
+            <td> @course.Coursename </td>
+            <td> @course.Description </td>
+             <td> @course.Duration </td>
+              <td> @course.Modules </td>
+              <td><a href="/Course/Edit?id=@course.Id">Edit</a></td>
+            <td><a href="/Course/Delete?id=@course.Id">Delete</a></td>
+        </tr>
+    }
+
+</table>
