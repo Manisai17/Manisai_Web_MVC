@@ -7,8 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddDbContext<LmsContext>(options=>options.UseSqlServer("Server = localhost; Database = lms; Trusted_Connection = True; Encrypt = False; TrustServerCertificate = True; ")
-);
+builder.Services.AddDbContext<LmsContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("LmsConnection")));
 
 var app = builder.Build();
 
