@@ -3,14 +3,14 @@
 A Learning Management System (LMS) web application built with ASP.NET Core MVC, designed to manage courses, students, tests, and test attempts.
 
 ## About
-This project follows the MVC (Model-View-Controller) architecture and uses Entity Framework Core to interact with a SQL Server database. It currently includes course management functionality, with the data model supporting students, tests, questions, and attempt tracking for future features.
+This project follows the MVC (Model-View-Controller) architecture and uses Entity Framework Core to interact with a SQL Server database. It currently includes two implementations of course management functionality, built as a learning exercise to compare approaches.
 
 ## Features
-- View a list of all available courses
-- Edit existing course details (name, description, modules, duration)
+- **CoursemastersController** — CRUD operations for courses generated using ASP.NET Core scaffolding (Create, Index, Details, Edit, Delete)
+- **CourseController** — CRUD operations for courses built manually without scaffolding, to understand what scaffolding generates under the hood (List, Add, Edit, View Single, Delete Confirmation)
 - Database-backed data using Entity Framework Core
 
-> More features (student management, test creation, attempt tracking) are in progress — the data models already exist and controllers/views are being built out.
+> Note: Both controllers currently manage the same `Coursemaster` data as a side-by-side learning comparison. Student management, test creation, and attempt tracking are planned next.
 
 ## Tech Stack
 - **Framework:** ASP.NET Core MVC (.NET 10.0)
@@ -30,7 +30,7 @@ This project follows the MVC (Model-View-Controller) architecture and uses Entit
 ### Installation
 1. Clone the repository
 ```bash
-   git clone https://github.com/your-username/Manisai_Web_MVC.git
+   git clone https://github.com/Manisai17/Manisai_Web_MVC.git
 ```
 2. Open `Manisai_WEB_MVC.slnx` in Visual Studio
 3. Update the connection string in `appsettings.json` under `ConnectionStrings` to point to your SQL Server instance
@@ -40,29 +40,32 @@ This project follows the MVC (Model-View-Controller) architecture and uses Entit
 ## Project Structure
 
 
+
 Manisai_WEB_MVC/
 ├── Controllers/
-│   └── CourseController.cs      # Handles course listing and editing
+│   ├── CourseController.cs          # Manual CRUD (no scaffolding)
+│   └── CoursemastersController.cs   # Scaffolded CRUD
 ├── Models/
-│   ├── Coursemaster.cs          # Course entity
-│   ├── Studentmaster.cs         # Student entity
-│   ├── Testmaster.cs            # Test entity
-│   ├── Testquestion.cs          # Test question entity
-│   ├── Studentattemptsummary.cs # Student test attempt summary
-│   ├── Studentattemptdetail.cs  # Student test attempt details
-│   ├── Usermaster.cs            # User entity
-│   └── LmsContext.cs            # EF Core database context
+│   ├── Coursemaster.cs
+│   ├── Studentmaster.cs
+│   ├── Testmaster.cs
+│   ├── Testquestion.cs
+│   ├── Studentattemptsummary.cs
+│   ├── Studentattemptdetail.cs
+│   ├── Usermaster.cs
+│   └── LmsContext.cs                # EF Core database context
 ├── Views/
-│   ├── Course/                  # Course list and edit views
-│   └── Shared/                  # Shared layout and partials
-└── wwwroot/                     # Static files (CSS, JS, images)
+│   ├── Course/                      # Views for manual controller
+│   ├── Coursemasters/                # Views for scaffolded controller
+│   └── Shared/
+└── wwwroot/                          # Static files (CSS, JS, images)
 
 
 ## Usage
-Once running, the app opens in your browser at a local address (e.g. `https://localhost:xxxx`). Navigate to the course listing page to view and edit course records.
+Once running, the app opens in your browser at a local address (e.g. `https://localhost:xxxx`). Navigate to `/Course` for the manual CRUD flow, or `/Coursemasters` for the scaffolded version.
 
 ## Status
-🚧 Actively in development — core course management is functional; student, test, and attempt-tracking features are planned next.
+🚧 Actively in development — course management (both scaffolded and manual versions) is functional; student, test, and attempt-tracking features are planned next.
 
 ## License
 This project currently has no license specified.

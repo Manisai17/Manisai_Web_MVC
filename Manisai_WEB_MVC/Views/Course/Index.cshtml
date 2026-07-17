@@ -1,29 +1,42 @@
-﻿
-@{
+﻿@{
+
+    ViewData["title"] = "  Course List  ";
+    List<Coursemaster> courses = ViewBag.courses;
 
 }
-<table border="1">
-    <tr>
-      <th>Course ID</th>
-      <th>Course Name</th>
-      <th>Description <th>
-      <th>Duration</th>
-      <th>Modules</th>
-      <th></th>
-      <th</th>
+<a href="/Course/AddCourse" > Add new course</a>
 
-    </tr>
-    @foreach (Coursemaster course in ViewBag.courses)
-    {
+<table>
+    <thead>
         <tr>
-           <td> @course.Id </td>
-            <td> @course.Coursename </td>
-            <td> @course.Description </td>
-             <td> @course.Duration </td>
-              <td> @course.Modules </td>
-              <td><a href="/Course/Edit?id=@course.Id">Edit</a></td>
-            <td><a href="/Course/Delete?id=@course.Id">Delete</a></td>
+            <th>Id</th>
+            <th>Course</th>
+            <th>Description</th>
+            <th>Duration</th>
+            <th>Modules</th>
+            <th></th>
+            <th></th>
         </tr>
-    }
+    </thead>
+    <tbody>
+        @foreach (Coursemaster course in courses)
+        {
+            <tr>
+                <td>@course.Id</td>
+                <td>@course.Coursename</td>
+                <td>@course.Description</td>
+                <td>@course.Duration</td>
+                <td>@course.Modules</td>
+                <td width="10%">
+                  <a href="/Course/GetSingleCourse?courseid=@course.Id">Details</a>
+                   <td width="10%">
+                  <a href="/Course/EditCourse?courseid=@course.Id">Edit</a>
+                   </td>
+                 <td width="10%">
+                    <a href="/Course/DeleteConfirmation?courseid=@course.Id">Delete</a>
+                 </td>
+            </tr>
+        }
 
+    </tbody>
 </table>
