@@ -1,3 +1,12 @@
 ﻿@{
-    ViewData["title"] = "Add new  Course";
+    ViewData["Title"] = "Add new Course";
 }
+@model Manisai_WEB_MVC.Models.Coursemaster
+
+<form asp-action="AddCourse" method="post">
+    Course Name : <input asp-for="Coursename" /> <br />
+    Description : <input asp-for="Description" /> <br />
+    Duration    : <input asp-for="Duration" type="number" /> <br />
+    Modules     : <input asp-for="Modules" /> <br />
+    <input type="submit" value="Add Course" />
+</form>

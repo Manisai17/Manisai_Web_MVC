@@ -20,10 +20,14 @@ namespace Manisai_WEB_MVC.Controllers
             return View();
         }
         //ii) Get single course details
-        public IActionResult GetSingleCourse(int courseid)
+        public IActionResult Details(int courseid)
         {
 
             var course = _context.Coursemasters.FirstOrDefault(cm => cm.Id == courseid);
+            if (course == null)
+            {
+                return View("NotFound");
+            }
             return View(course);
         }
 
@@ -32,12 +36,12 @@ namespace Manisai_WEB_MVC.Controllers
         public IActionResult AddCourse()
         {
             //Nothing to supply to view as this is an completely empty form 
-            return View();
+            return View(new Coursemaster());
         }
         //ii)POST=> AddCourse => action to accept the course detailed entered in empty form and save
         [HttpPost]
         // public IActionResult AddCourse(string coursename , string description , int duration , string modules)
-        public IActionResult AddCourse([Bind("Coursename, Desciption,Duration,Modules")] Coursemaster coursemaster)
+        public IActionResult AddCourse([Bind("Coursename, Description,Duration,Modules")] Coursemaster coursemaster)
         {
             _context.Coursemasters.Add(coursemaster);
             _context.SaveChanges();
@@ -49,6 +53,11 @@ namespace Manisai_WEB_MVC.Controllers
         public IActionResult EditCourse(int courseid)
         {
             var course=_context.Coursemasters.FirstOrDefault(cm=>cm.Id == courseid);
+            if (course == null)
+            {
+                return View("NotFound");
+            }
+
             return View(course);
         }
         //ii) POST Action=> EditCourse  to acccept the edited course details and updatee the course
@@ -66,8 +75,11 @@ namespace Manisai_WEB_MVC.Controllers
         //i)GET ACtion => DeleteCourse to get id as input to  show confirmation page
         public IActionResult DeleteConfirmation(int courseid)
         {
-
             var course = _context.Coursemasters.FirstOrDefault(cm => cm.Id == courseid);
+             if (course == null)
+            {
+                return View("NotFound");
+            }
             return View(course);
         }
         //ii)POST Action=> DeleteCourse to get the id of course to be deleted 

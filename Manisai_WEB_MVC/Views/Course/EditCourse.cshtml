@@ -2,3 +2,14 @@
 @{
     ViewData["title"] = "Edit Course";
 }
+@model Manisai_WEB_MVC.Models.Coursemaster
+
+<form action="/Course/EditCourse" method="post">
+
+    <input type="hidden" name="Id" value="@Model.Id" />
+    Course Name : <input asp-for="@Model.Coursename" /> <br />
+    Description : <input asp-for="@Model.Description" /> <br />
+    Duration    : <input asp-for="@Model.Duration" />  <br />
+    Modules     : <input asp-for="@Model.Modules" /> <br />
+    <input type="submit" value="Update Course" />
+</form>

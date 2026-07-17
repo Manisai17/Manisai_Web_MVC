@@ -1,4 +1,15 @@
 ﻿@{
     ViewData["title"] = "Delete Confirmation";
 }
-  
+@model Manisai_WEB_MVC.Models.Coursemaster
+
+<h3> Are you Sure you want to delete the Below Course</h3>
+
+Course ID   : @Model.Id <br/>
+Course Name : @Model.Description  <br/>
+Description : @Model.Coursename  <br />
+Duration    : @Model.Duration <br />
+<a href="/Course/DeleteCourse?courseid=@Model.Id"> Yes Delete... </a>
+<br />
+<br />
+<a href="/Course/Index"> No !! Go Back </a>
