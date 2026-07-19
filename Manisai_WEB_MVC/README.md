@@ -3,7 +3,7 @@
 A Learning Management System (LMS) web application built with ASP.NET Core MVC, designed to manage courses, students, tests, and test attempts.
 
 ## About
-This project follows the MVC (Model-View-Controller) architecture and uses Entity Framework Core to interact with a SQL Server database. It currently includes two implementations of course management, built as a learning exercise to compare a manually written CRUD flow against ASP.NET Core's scaffolding tool.
+This project follows the MVC (Model-View-Controller) architecture and uses Entity Framework Core to interact with a SQL Server database. It currently includes course management (built both manually and via scaffolding) and test management, built as a learning exercise.
 
 ## Features
 - **CourseController** — Fully manual CRUD for courses (no scaffolding):
@@ -13,9 +13,10 @@ This project follows the MVC (Model-View-Controller) architecture and uses Entit
   - Edit an existing course (`EditCourse`)
   - Delete a course with a confirmation step (`DeleteConfirmation` → `DeleteCourse`)
 - **CoursemastersController** — CRUD for courses generated using ASP.NET Core scaffolding (Create, Index, Details, Edit, Delete)
+- **TestmastersController** — CRUD for tests generated using ASP.NET Core scaffolding (Create, Index, Details, Edit, Delete)
 - Database-backed data using Entity Framework Core
 
-> Note: Both controllers manage the same `Coursemaster` data as a side-by-side learning comparison. Student management, test creation, and attempt tracking are planned next.
+> Note: Course management exists in both manual and scaffolded form as a side-by-side learning comparison. Student management and test attempt tracking are planned next.
 
 ## Tech Stack
 - **Framework:** ASP.NET Core MVC (.NET 10.0)
@@ -47,7 +48,8 @@ This project follows the MVC (Model-View-Controller) architecture and uses Entit
 Manisai_WEB_MVC/
 ├── Controllers/
 │   ├── CourseController.cs          # Manual CRUD (no scaffolding) — fully complete
-│   └── CoursemastersController.cs   # Scaffolded CRUD
+│   ├── CoursemastersController.cs   # Scaffolded course CRUD
+│   └── TestmastersController.cs     # Scaffolded test CRUD
 ├── Models/
 │   ├── Coursemaster.cs
 │   ├── Studentmaster.cs
@@ -58,16 +60,17 @@ Manisai_WEB_MVC/
 │   ├── Usermaster.cs
 │   └── LmsContext.cs                # EF Core database context
 ├── Views/
-│   ├── Course/                      # Views for manual controller
-│   ├── Coursemasters/                # Views for scaffolded controller
+│   ├── Course/                      # Views for manual course controller
+│   ├── Coursemasters/                # Views for scaffolded course controller
+│   ├── Testmasters/                  # Views for scaffolded test controller
 │   └── Shared/
 └── wwwroot/                          # Static files (CSS, JS, images)
 
 ## Usage
-Once running, the app opens in your browser at a local address (e.g. `https://localhost:xxxx`). Navigate to `/Course` for the manual CRUD flow (fully working — add, edit, view, delete courses), or `/Coursemasters` for the scaffolded version.
+Once running, the app opens in your browser at a local address (e.g. `https://localhost:xxxx`). Navigate to `/Course` for the manual CRUD flow, `/Coursemasters` for the scaffolded course version, or `/Testmasters` to manage tests.
 
 ## Status
-🚧 Actively in development — manual `CourseController` CRUD is fully complete; scaffolded version also functional. Student, test, and attempt-tracking features are planned next.
+🚧 Actively in development — course management (manual and scaffolded) is complete; test management added. Student management and attempt-tracking features are planned next.
 
 ## License
 This project currently has no license specified.

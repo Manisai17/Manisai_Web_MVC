@@ -15,7 +15,7 @@ public partial class Testmaster
 
     public int? Totquestions { get; set; }
 
-    public virtual Coursemaster? Fkcourse { get; set; }
+    public virtual Coursemaster? Fkcourse { get; set; } //Navigation type variable
 
     public virtual ICollection<Studentattemptsummary> Studentattemptsummaries { get; set; } = new List<Studentattemptsummary>();
 
