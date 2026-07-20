@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿
+using Manisai_WEB_MVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Manisai_WEB_MVC.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Manisai_WEB_MVC.Controllers
+namespace FLM_WEB_MVC.Controllers
 {
     public class TestmastersController : Controller
     {
@@ -47,9 +48,8 @@ namespace Manisai_WEB_MVC.Controllers
         // GET: Testmasters/Create
         public IActionResult Create()
         {
-            ViewData["Fkcourseid"] = new SelectList(_context.Coursemasters, "Id", "Coursename");
-            
-            return View();
+            ViewBag.courses = _context.Coursemasters.ToList();
+            return View(new Testmaster());//Binding empty model
         }
 
         // POST: Testmasters/Create
@@ -65,8 +65,18 @@ namespace Manisai_WEB_MVC.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Fkcourseid"] = new SelectList(_context.Coursemasters, "Id", "Coursename", testmaster.Fkcourseid);
+            ViewData["Fkcourseid"] = _context.Coursemasters.ToList();
             return View(testmaster);
+        }
+
+        public IActionResult Test()
+        {
+            //var testmaster = _context.Testmasters.FirstOrDefault(test => test.Id == 1);
+
+            ViewBag.courses = _context.Coursemasters.ToList();
+            return View();
+
+            //return View(testmaster);
         }
 
         // GET: Testmasters/Edit/5
@@ -83,7 +93,7 @@ namespace Manisai_WEB_MVC.Controllers
                 return NotFound();
             }
             ViewData["Fkcourseid"] = new SelectList(_context.Coursemasters, "Id", "Coursename", testmaster.Fkcourseid);
-                                   //new SelectList(List<course> , Value field , Text field , SelectedValueTobeSavedinDB);
+            //new SelectList(List<course>, valueFiled, TextFiled, selectedValueTobeSavedinDB);
             return View(testmaster);
         }
 
@@ -161,5 +171,7 @@ namespace Manisai_WEB_MVC.Controllers
         {
             return _context.Testmasters.Any(e => e.Id == id);
         }
+
+
     }
 }

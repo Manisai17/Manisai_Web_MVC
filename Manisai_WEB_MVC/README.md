@@ -3,20 +3,20 @@
 A Learning Management System (LMS) web application built with ASP.NET Core MVC, designed to manage courses, students, tests, and test attempts.
 
 ## About
-This project follows the MVC (Model-View-Controller) architecture and uses Entity Framework Core to interact with a SQL Server database. It currently includes course management (built both manually and via scaffolding) and test management, built as a learning exercise.
+This project follows the MVC (Model-View-Controller) architecture and uses Entity Framework Core to interact with a SQL Server database.
 
 ## Features
-- **CourseController** — Fully manual CRUD for courses (no scaffolding):
-  - View all courses (`Index`)
-  - View a single course's details (`Details`)
-  - Add a new course (`AddCourse`)
-  - Edit an existing course (`EditCourse`)
-  - Delete a course with a confirmation step (`DeleteConfirmation` → `DeleteCourse`)
-- **CoursemastersController** — CRUD for courses generated using ASP.NET Core scaffolding (Create, Index, Details, Edit, Delete)
-- **TestmastersController** — CRUD for tests generated using ASP.NET Core scaffolding (Create, Index, Details, Edit, Delete)
+- **CourseController** — Fully manual CRUD for courses (no scaffolding): list, view details, add, edit, delete with confirmation
+- **CoursemastersController** — Scaffolded CRUD for courses (Create, Index, Details, Edit, Delete)
+- **TestmastersController** — Scaffolded CRUD for tests (Create, Index, Details, Edit, Delete), plus an in-progress test-taking view
 - Database-backed data using Entity Framework Core
 
-> Note: Course management exists in both manual and scaffolded form as a side-by-side learning comparison. Student management and test attempt tracking are planned next.
+## Not Yet Implemented
+- Student management (`Studentmaster`)
+- User accounts / login (`Usermaster`)
+- Test questions (`Testquestion`)
+- A working test-taking flow for students
+- Recording student attempt results (`Studentattemptsummary`, `Studentattemptdetail`)
 
 ## Tech Stack
 - **Framework:** ASP.NET Core MVC (.NET 10.0)
@@ -40,16 +40,16 @@ This project follows the MVC (Model-View-Controller) architecture and uses Entit
 ```
 2. Open `Manisai_WEB_MVC.slnx` in Visual Studio
 3. Update the connection string in `appsettings.json` under `ConnectionStrings` to point to your SQL Server instance
-4. Restore NuGet packages (happens automatically on open, or run `dotnet restore`)
-5. Press `F5` or click **Run** to launch the app
+4. Restore NuGet packages
+5. Press `F5` to run
 
 ## Project Structure
 
 Manisai_WEB_MVC/
 ├── Controllers/
-│   ├── CourseController.cs          # Manual CRUD (no scaffolding) — fully complete
+│   ├── CourseController.cs          # Manual CRUD (no scaffolding)
 │   ├── CoursemastersController.cs   # Scaffolded course CRUD
-│   └── TestmastersController.cs     # Scaffolded test CRUD
+│   └── TestmastersController.cs     # Scaffolded test CRUD + WIP test-taking
 ├── Models/
 │   ├── Coursemaster.cs
 │   ├── Studentmaster.cs
@@ -58,19 +58,20 @@ Manisai_WEB_MVC/
 │   ├── Studentattemptsummary.cs
 │   ├── Studentattemptdetail.cs
 │   ├── Usermaster.cs
-│   └── LmsContext.cs                # EF Core database context
+│   └── LmsContext.cs
 ├── Views/
-│   ├── Course/                      # Views for manual course controller
-│   ├── Coursemasters/                # Views for scaffolded course controller
-│   ├── Testmasters/                  # Views for scaffolded test controller
+│   ├── Course/
+│   ├── Coursemasters/
+│   ├── Testmasters/
 │   └── Shared/
-└── wwwroot/                          # Static files (CSS, JS, images)
+└── wwwroot/
 
 ## Usage
-Once running, the app opens in your browser at a local address (e.g. `https://localhost:xxxx`). Navigate to `/Course` for the manual CRUD flow, `/Coursemasters` for the scaffolded course version, or `/Testmasters` to manage tests.
+`/Course` for manual course CRUD, `/Coursemasters` for scaffolded course CRUD, `/Testmasters` for test CRUD.
 
 ## Status
-🚧 Actively in development — course management (manual and scaffolded) is complete; test management added. Student management and attempt-tracking features are planned next.
+🚧 Actively in development — roughly 25–30% complete. Course and test management (CRUD) are done. Student records, user login, test questions, and the actual test-taking/results flow are not yet built.
 
 ## License
 This project currently has no license specified.
+

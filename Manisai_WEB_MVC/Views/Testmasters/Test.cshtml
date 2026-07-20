@@ -1,0 +1,9 @@
+﻿@{
+}
+<form action="TestInput" method="get">
+
+    @Html.DropDownList("FkCourseId", new SelectList(ViewBag.courses, "Id", "Coursename"), "Select a course", new { @class = "form-control" })
+
+    <input type="submit" value="Test" />
+
+</form>
