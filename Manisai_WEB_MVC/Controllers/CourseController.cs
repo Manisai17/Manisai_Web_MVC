@@ -1,8 +1,10 @@
 ﻿using Manisai_WEB_MVC.Models;
 using Microsoft.AspNetCore.Mvc;
+using Manisai_WEB_MVC.Filters;
 
 namespace Manisai_WEB_MVC.Controllers
 {
+    [LoginCheckFilter]
     public class CourseController : Controller
     {
         private readonly LmsContext _context;

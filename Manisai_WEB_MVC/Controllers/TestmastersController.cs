@@ -7,9 +7,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Manisai_WEB_MVC.Filters;
 
 namespace FLM_WEB_MVC.Controllers
 {
+    [LoginCheckFilter]
     public class TestmastersController : Controller
     {
         private readonly LmsContext _context;
