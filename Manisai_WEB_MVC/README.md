@@ -3,7 +3,7 @@
 A Learning Management System (LMS) web application built with ASP.NET Core MVC, designed to manage courses, students, tests, and test attempts.
 
 ## About
-This project follows the MVC (Model-View-Controller) architecture and uses Entity Framework Core to interact with a SQL Server database. Students can register, log in, and (soon) take tests tied to their enrolled course. Session-based authentication protects course and test management pages.
+This project follows the MVC (Model-View-Controller) architecture and uses Entity Framework Core to interact with a SQL Server database. Students can register, log in, browse tests, and now actually take a test by answering questions with radio buttons — the app calculates and displays their score immediately.
 
 ## Features
 - **Course management** — two implementations for learning comparison:
@@ -13,9 +13,10 @@ This project follows the MVC (Model-View-Controller) architecture and uses Entit
 - **Route protection** — custom `LoginCheckFilter` action filter redirects unauthenticated users to the login page
 - **Test management** — `TestmastersController` with full CRUD, linked to courses
 - **Test question management** — `TestquestionsController` with full CRUD, filterable by test (`?testId=`)
+- **Test-taking flow** — `StudentTestController` lets a logged-in student open a test, answer all questions via radio buttons, and see an instant score on submit
 - Database-backed data using Entity Framework Core
 
-> Next up: student-facing test-taking flow, saving attempt results, and a student dashboard.
+> Next up: saving test attempts (score + individual answers) to the database, and a student dashboard to view past results.
 
 ## Tech Stack
 - **Framework:** ASP.NET Core MVC (.NET 10.0)
@@ -50,7 +51,8 @@ Manisai_WEB_MVC/
 │ ├── CoursemastersController.cs # Scaffolded course CRUD
 │ ├── TestmastersController.cs # Test CRUD
 │ ├── StudentmastersController.cs # Student CRUD + Login/Logout
-│ └── TestquestionsController.cs # Test question CRUD (filterable by test)
+│ ├── TestquestionsController.cs # Test question CRUD (filterable by test)
+│ └── StudentTestController.cs # Test-taking flow (TakeTest, SubmitTest)
 ├── Filters/
 │ └── LoginCheckFilter.cs # Session-based route protection
 ├── Models/
@@ -59,15 +61,15 @@ Manisai_WEB_MVC/
 │ └── LmsContext.cs # EF Core database context
 ├── Views/
 │ ├── Course/, Coursemasters/, Testmasters/, Studentmasters/, Testquestions/
+│ ├── StudentTest/ # TakeTest.cshtml, TestResult.cshtml
 │ └── Shared/
 └── wwwroot/ # Static files (CSS, JS, images)
 
 ## Usage
-Once running, log in at `/Studentmasters/Login` using a student's email and password from the `studentmaster` table. After login, course and test management pages become accessible.
+Log in at `/Studentmasters/Login` using a student's email and password. From `/Testmasters`, click **Take Test** next to any test to answer its questions and see your score instantly.
 
 ## Status
-🚧 Actively in development — course, student login, test, and test-question management are functional. Student test-taking flow is in progress.
+🚧 Actively in development — course, student login, test/question management, and the test-taking flow (score calculated on submit, not yet saved) are functional. Saving attempts to the database is next.
 
 ## License
 This project currently has no license specified.
-

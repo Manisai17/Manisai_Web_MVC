@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Manisai_WEB_MVC.Models.Testquestion>
+@{
+    var test = ViewBag.Test as Manisai_WEB_MVC.Models.Testmaster;
+    ViewData["Title"] = "Take Test";
+}
+
+<h1>@test.Testname</h1>
+<p>Duration: @test.Duration minutes | Total Questions: @test.Totquestions</p>
+
+<form asp-action="SubmitTest" asp-controller="StudentTest" method="post">
+    <input type="hidden" name="testId" value="@test.Id" />
+
+    @{
+        int qNum = 1;
+    }
+    @foreach (var question in Model)
+    {
+        <div class="card mb-3 p-3">
+            <h5>Q@(qNum). @question.Question</h5>
+
+            <div class="form-check">
+                <input class="form-check-input" type="radio"
+                       name="answers[@question.Id]" value="1" id="q@(question.Id)_1" />
+                <label class="form-check-label" for="q@(question.Id)_1">@question.Answer1</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio"
+                       name="answers[@question.Id]" value="2" id="q@(question.Id)_2" />
+                <label class="form-check-label" for="q@(question.Id)_2">@question.Answer2</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio"
+                       name="answers[@question.Id]" value="3" id="q@(question.Id)_3" />
+                <label class="form-check-label" for="q@(question.Id)_3">@question.Answer3</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio"
+                       name="answers[@question.Id]" value="4" id="q@(question.Id)_4" />
+                <label class="form-check-label" for="q@(question.Id)_4">@question.Answer4</label>
+            </div>
+        </div>
+        qNum++;
+    }
+
+    <button type="submit" class="btn btn-primary">Submit Test</button>
+</form>
