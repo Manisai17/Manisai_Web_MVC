@@ -1,0 +1,26 @@
+﻿@model IEnumerable<Manisai_WEB_MVC.Models.Studentattemptdetail>
+@{
+    var test = ViewBag.Test as Manisai_WEB_MVC.Models.Testmaster;
+    ViewData["Title"] = "Attempt Details";
+}
+
+<h1>@test.Testname — Your Answers</h1>
+
+@foreach (var detail in Model)
+{
+    var question = detail.Fktestquestion;
+    <div class="card mb-3 p-3">
+        <h5>@question?.Question</h5>
+        <p>Your answer: Option @detail.Selectedans</p>
+        <p>Correct answer: Option @question?.Correctans</p>
+        <p class="@(detail.Iscorrect == true ? "text-success" : "text-danger")">
+            @(detail.Iscorrect == true ? "Correct ✅" : "Incorrect ❌")
+        </p>
+        @if (!string.IsNullOrEmpty(question?.Explanation))
+        {
+            <p><em>Explanation: @question.Explanation</em></p>
+        }
+    </div>
+}
+
+<a asp-action="Index">Back to My Test History</a>

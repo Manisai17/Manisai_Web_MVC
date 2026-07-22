@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Manisai_WEB_MVC.Models.Studentattemptsummary>
+@{
+    ViewData["Title"] = "My Test History";
+}
+
+<h1>My Test History</h1>
+
+@if (!Model.Any())
+{
+    <p>You haven't attempted any tests yet.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Test</th>
+                <th>Date</th>
+                <th>Result</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var attempt in Model)
+            {
+                <tr>
+                    <td>@attempt.Fktest?.Testname</td>
+                    <td>@attempt.Attemptdate</td>
+                    <td>
+                        @if (attempt.Result == true)
+                        {
+                            <span class="text-success">Passed</span>
+                        }
+                        else
+                        {
+                            <span class="text-danger">Failed</span>
+                        }
+                    </td>
+                    <td>
+                        <a asp-action="Details" asp-route-testId="@attempt.Fktestid">View Answers</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
