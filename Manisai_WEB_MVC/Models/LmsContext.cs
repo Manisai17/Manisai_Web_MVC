@@ -120,7 +120,7 @@ public partial class LmsContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("mobile");
             entity.Property(e => e.Password)
-                .HasMaxLength(50)
+                .HasMaxLength(100)
                 .IsUnicode(false)
                 .HasColumnName("password");
             entity.Property(e => e.Photo)

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Manisai_WEB_MVC.Models;
+using BCrypt.Net;
 
 namespace Manisai_WEB_MVC.Controllers
 {
@@ -60,6 +61,7 @@ namespace Manisai_WEB_MVC.Controllers
         {
             if (ModelState.IsValid)
             {
+                studentmaster.Password=BCrypt.Net.BCrypt.HashPassword(studentmaster.Password);
                 _context.Add(studentmaster);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -161,22 +163,25 @@ namespace Manisai_WEB_MVC.Controllers
         }
 
         // POST: Studentmasters/Login
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        
+        [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(string emailid, string password)
         {
+            // Step 1: find the student by email ONLY (can't filter by password anymore)
             var student = await _context.Studentmasters
-                .FirstOrDefaultAsync(s => s.Emailid == emailid && s.Password == password);
+                .FirstOrDefaultAsync(s => s.Emailid == emailid);
 
-            if (student == null)
+            // Step 2: if no student with that email, OR the typed password doesn't
+            // match the stored hash, reject login
+            if (student == null || !BCrypt.Net.BCrypt.Verify(password, student.Password))
             {
                 ViewBag.Error = "Invalid email or password";
                 return View();
             }
 
+            // Step 3: login succeeds, same as before
             HttpContext.Session.SetInt32("StudentId", student.Id);
             HttpContext.Session.SetString("StudentName", student.Studname);
-
             return RedirectToAction("Index", "Course");
         }
 
