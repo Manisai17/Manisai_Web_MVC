@@ -2,22 +2,13 @@
     ViewData["Title"] = "Test Result";
     int score = ViewBag.Score;
     int total = ViewBag.Total;
+    bool passed = ViewBag.Passed;
 }
 
 <h1>Test Completed</h1>
 <h3>Your Score: @score / @total</h3>
-
-@if (score == total)
-{
-    <p class="text-success">Perfect score! 🎉</p>
-}
-else if (score >= total / 2)
-{
-    <p class="text-primary">Good job!</p>
-}
-else
-{
-    <p class="text-danger">Keep practicing.</p>
-}
+<h4 class="@(passed ? "text-success" : "text-danger")">
+    @(passed ? "PASSED ✅" : "FAILED ❌")
+</h4>
 
 <a asp-controller="Course" asp-action="Index" class="btn btn-secondary">Back to Courses</a>

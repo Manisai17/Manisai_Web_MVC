@@ -35,8 +35,13 @@ namespace Manisai_WEB_MVC.Controllers
 
         // POST: /StudentTest/SubmitTest
         [HttpPost]
+        [HttpPost]
         public async Task<IActionResult> SubmitTest(int testId, Dictionary<int, int> answers)
         {
+            int? studentId = HttpContext.Session.GetInt32("StudentId");
+            if (studentId == null)
+                return RedirectToAction("Login", "Studentmasters");
+
             var questions = await _context.Testquestions
                 .Where(q => q.Fktestid == testId)
                 .ToListAsync();
@@ -47,13 +52,38 @@ namespace Manisai_WEB_MVC.Controllers
             {
                 if (answers.TryGetValue(question.Id, out int selectedAns))
                 {
-                    if (selectedAns == question.Correctans)
-                        correctCount++;
+                    bool isCorrect = selectedAns == question.Correctans;
+                    if (isCorrect) correctCount++;
+
+                    var detail = new Studentattemptdetail
+                    {
+                        Fkstudid = studentId.Value,
+                        Fktestquestionid = question.Id,
+                        Selectedans = selectedAns,
+                        Iscorrect = isCorrect
+                    };
+
+                    _context.Studentattemptdetails.Add(detail);
                 }
             }
 
+            bool passed = questions.Count > 0 && (correctCount >= questions.Count / 2.0);
+
+            var summary = new Studentattemptsummary
+            {
+                Fkstudid = studentId.Value,
+                Fktestid = testId,
+                Result = passed,
+                Attemptdate = DateOnly.FromDateTime(DateTime.Now)
+            };
+
+            _context.Studentattemptsummaries.Add(summary);
+
+            await _context.SaveChangesAsync();
+
             ViewBag.Score = correctCount;
             ViewBag.Total = questions.Count;
+            ViewBag.Passed = passed;
             return View("TestResult");
         }
     }
