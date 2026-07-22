@@ -3,7 +3,7 @@
 A Learning Management System (LMS) web application built with ASP.NET Core MVC, designed to manage courses, students, tests, and test attempts.
 
 ## About
-This project follows the MVC (Model-View-Controller) architecture and uses Entity Framework Core to interact with a SQL Server database. Students can register, log in, take a test by answering questions with radio buttons, and their results are now permanently saved to the database — an overall pass/fail summary plus every individual answer.
+This project follows the MVC (Model-View-Controller) architecture and uses Entity Framework Core to interact with a SQL Server database. Students can register, log in, take tests by answering questions with radio buttons, have their results permanently saved, and now view their complete test history and detailed answer review through a personal dashboard.
 
 ## Features
 - **Course management** — two implementations for learning comparison:
@@ -14,10 +14,11 @@ This project follows the MVC (Model-View-Controller) architecture and uses Entit
 - **Test management** — `TestmastersController` with full CRUD, linked to courses
 - **Test question management** — `TestquestionsController` with full CRUD, filterable by test (`?testId=`)
 - **Test-taking flow** — `StudentTestController` lets a logged-in student open a test, answer all questions via radio buttons, and submit
-- **Attempt persistence** — on submit, the overall pass/fail result is saved to `studentattemptsummary`, and each individual answer is saved to `studentattemptdetails`
+- **Attempt persistence** — pass/fail results saved to `studentattemptsummary`, individual answers saved to `studentattemptdetails`
+- **Student dashboard** — `StudentDashboardController` shows each student their full test history (with pass/fail status) and a detailed per-question answer review for any past attempt
 - Database-backed data using Entity Framework Core
 
-> Next up: a student dashboard to view past test attempts and scores.
+> Next up: password hashing for security, model validation, and general polish.
 
 ## Tech Stack
 - **Framework:** ASP.NET Core MVC (.NET 10.0)
@@ -53,7 +54,8 @@ Manisai_WEB_MVC/
 │ ├── TestmastersController.cs # Test CRUD
 │ ├── StudentmastersController.cs # Student CRUD + Login/Logout
 │ ├── TestquestionsController.cs # Test question CRUD (filterable by test)
-│ └── StudentTestController.cs # Test-taking flow + saving attempt results
+│ ├── StudentTestController.cs # Test-taking flow + saving attempt results
+│ └── StudentDashboardController.cs # Student's test history + answer review
 ├── Filters/
 │ └── LoginCheckFilter.cs # Session-based route protection
 ├── Models/
@@ -63,14 +65,16 @@ Manisai_WEB_MVC/
 ├── Views/
 │ ├── Course/, Coursemasters/, Testmasters/, Studentmasters/, Testquestions/
 │ ├── StudentTest/ # TakeTest.cshtml, TestResult.cshtml
+│ ├── StudentDashboard/ # Index.cshtml, Details.cshtml
 │ └── Shared/
 └── wwwroot/ # Static files (CSS, JS, images)
 
 ## Usage
-Log in at `/Studentmasters/Login` using a student's email and password. From `/Testmasters`, click **Take Test** next to any test to answer its questions. On submit, the result and every answer are saved automatically, and the page shows the score plus a PASSED/FAILED badge.
+Log in at `/Studentmasters/Login`. From `/Testmasters`, click **Take Test** to answer questions and get an instant score with a saved result. Click **My Tests** in the navigation bar at any time to see your full test history and review your answers on any past attempt.
 
 ## Status
-🚧 Actively in development — course, student login, test/question management, and the full test-taking-and-saving flow are functional and confirmed saving correctly to the database. A student dashboard to view past attempts is next.
+🚧 Actively in development — course, student login, test/question management, test-taking, result saving, and the student dashboard are all functional. Password hashing, validation, and polish are planned next.
 
 ## License
 This project currently has no license specified.
+
